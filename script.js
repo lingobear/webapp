@@ -1,4 +1,85 @@
-// Smooth scrolling for navigation links
+console.log('Portfolio website loaded successfully! 🎨');
+
+// =============================================================================
+// 1. Random Teacher Images
+// =============================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    const randomImages = document.querySelectorAll('.js-random-image');
+    randomImages.forEach(img => {
+        try {
+            const images = JSON.parse(img.getAttribute('data-images'));
+            if (images && images.length > 0) {
+                const randomIndex = Math.floor(Math.random() * images.length);
+                img.src = images[randomIndex];
+            }
+        } catch (e) {
+            console.error('Error parsing image array:', e);
+        }
+    });
+});
+
+// =============================================================================
+// 2. Random Testimonial Names
+// =============================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    const names = [
+        'سارا احمدی', 'علی رضایی', 'مریم کریمی', 'محمد حسینی',
+        'فاطمه نوری', 'امیر محمدی', 'زهرا کاظمی', 'حسین موسوی',
+        'نرگس اکبری', 'رضا صادقی'
+    ];
+    const testimonials = document.querySelectorAll('.js-random-name');
+    testimonials.forEach((nameEl, idx) => {
+        nameEl.textContent = names[idx % names.length];
+    });
+});
+
+// =============================================================================
+// 3. IELTS Results Modal
+// =============================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('imageModal');
+    const modalImg = modal ? modal.querySelector('img') : null;
+    const closeBtn = modal ? modal.querySelector('.image-modal-close') : null;
+    
+    if (!modal || !modalImg || !closeBtn) return;
+    
+    // Open modal when clicking thumbnails
+    document.querySelectorAll('.result-thumb').forEach(thumb => {
+        thumb.addEventListener('click', () => {
+            const fullSrc = thumb.getAttribute('data-full');
+            const alt = thumb.getAttribute('data-alt') || 'نتیجه آیلتس';
+            
+            modalImg.src = fullSrc;
+            modalImg.alt = alt;
+            modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    
+    // Close modal
+    const closeModal = () => {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    };
+    
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    
+    // ESC key to close
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+});
+
+// =============================================================================
+// 4. Smooth Scrolling
+// =============================================================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
