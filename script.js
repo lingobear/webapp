@@ -275,11 +275,11 @@ document.head.appendChild(style);
 
 // Add hover effect for CTA button
 const ctaButton = document.querySelector('.cta-button');
-if (ctaButton) {
-    ctaButton.addEventListener('click', () => {
-        alert('شروع ثبت نام! این یک صفحه نمایشی است.');
-    });
-}
+// if (ctaButton) {
+//     ctaButton.addEventListener('click', () => {
+//         alert('شروع ثبت نام! این یک صفحه نمایشی است.');
+//     });
+// }
 
 // Add ripple effect to buttons
 document.querySelectorAll('.cta-button, .social-link').forEach(button => {
